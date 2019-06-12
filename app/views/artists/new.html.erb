@@ -1,9 +1,8 @@
-<h1>Create an Artist</h1>
+<h1><center>Add a New Artist</center></h1>
 
 <%= form_for @artist  do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <br />
+    <h3><%= f.label :name, "Name:" %>
+    <%= f.text_field :name %>
 
-  <%= f.submit %>
+    <%= f.submit "Add" %></h3>
 <% end %>
