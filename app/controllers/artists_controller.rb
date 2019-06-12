@@ -1,52 +1,51 @@
 class ArtistsController < ApplicationController
-  def index
-    @artists = Artist.all
-  end
+    before_action :find_artist, only: [:show, :edit, :update, :destroy]
 
-  def show
-    @artist = Artist.find(params[:id])
-  end
-
-  def new
-    @artist = Artist.new
-  end
-
-  def create
-    @artist = Artist.new(artist_params)
-
-    if @artist.save
-      redirect_to @artist
-    else
-      render :new
+    def index
+        @artists = Artist.all
     end
-  end
 
-  def edit
-    @artist = Artist.find(params[:id])
-  end
-
-  def update
-    @artist = Artist.find(params[:id])
-
-    @artist.update(artist_params)
-
-    if @artist.save
-      redirect_to @artist
-    else
-      render :edit
+    def show
     end
-  end
 
-  def destroy
-    @artist = Artist.find(params[:id])
-    @artist.destroy
-    flash[:notice] = "Artist deleted."
-    redirect_to artists_path
-  end
+    def new
+        @artist = Artist.new
+    end
 
-  private
+    def create
+        @artist = Artist.new(artist_params)
+        if @artist.save
+            redirect_to @artist
+        else
+            render :new
+        end
+    end
 
-  def artist_params
-    params.require(:artist).permit(:name)
-  end
+    def edit
+    end
+
+    def update
+        @artist.update(artist_params)
+        if @artist.save
+            redirect_to @artist
+        else
+            render :edit
+        end
+    end
+
+    def destroy
+        @artist.destroy
+        flash[:notice] = "Artist deleted."
+        redirect_to artists_path
+    end
+
+    private
+
+    def find_artist
+        @artist = Artist.find(params[:id])
+    end
+
+    def artist_params
+        params.require(:artist).permit(:name)
+    end
 end
